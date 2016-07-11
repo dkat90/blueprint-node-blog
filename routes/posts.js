@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var multer = require('multer');
-var upload = multer({ dest: 'uploads/' });
+var upload = multer({ dest: './public/images' });
 var mongo = require('mongodb');
 var db = require('monk')('localhost/nodeblog');
 
@@ -23,13 +23,11 @@ router.post('/add', upload.single('mainimage'), function(req,res, next){
   var body = req.body.body;
   var author = req.body.author;
   var date = new Date();
-
+  console.log(category);
   //Check image upload
   if(req.file){
     var mainimage = req.file.filename;
-    console.log('YES');
   } else {
-    console.log('No');
     var mainimage = 'noimage.jpg';
   }
   //form validation
@@ -48,7 +46,7 @@ router.post('/add', upload.single('mainimage'), function(req,res, next){
     posts.insert({
       "title": title,
       "body": body,
-      "cateogry": category,
+      "category": category,
       "date": date,
       "author": author,
       "mainimage": mainimage
@@ -61,6 +59,7 @@ router.post('/add', upload.single('mainimage'), function(req,res, next){
         res.redirect('/');
       }
     });
+    console.log(posts.title);
   }
 });
 
