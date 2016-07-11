@@ -27,5 +27,6 @@ block content
         option(value="King") King
         option(value="Queen") Queen
     input.btn.btn-default(type='submit', name='submit', value='Save') 
-
-  
+    script(src='/ckeditor/ckeditor.js')
+    script
+        | CKEDITOR.replace('body');  
